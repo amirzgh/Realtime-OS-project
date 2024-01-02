@@ -1,5 +1,14 @@
 import random
 
+class Task:
+    def __init__(self, name, computation_time, deadline, criticality, utility):
+        self.name = name
+        self.computation_time = computation_time
+        self.deadline = deadline
+        self.criticality = criticality
+        self.utility = utility
+        self.frequency = None
+
 def generate_tasksest(task_number, utilization):
     tasks = []
     sumU = utilization
@@ -10,22 +19,22 @@ def generate_tasksest(task_number, utilization):
         nextSumU = sumU * random.random() ** (1.0 / (task_number - i))
         utilizations = sumU - nextSumU
         sumU = nextSumU
-        computation_time = random.randint(1,50)
-        deadline = random.randint(1,50)
-        task_data = {"Taskname": task_index, "Computation Time (ms)": computation_time, "Deadline (ms)": deadline, "Criticality": criticalities, "Utilization": utilizations}
+        computation_time = random.randint(10,50)
+        deadline = random.randint(50,100)
+        task_data = Task(task_index, computation_time, deadline, criticalities, utilizations)
         tasks.append(task_data)
 
     return tasks
 
 
 def write_to_file(utility):
-    file_name = f'utility_{utility}'
+    file_name = f'utility_{utility}.txt'
     task_set = generate_tasksest(100, utility)
     with open (file_name,'w') as file:
         for item in task_set:
             file.write(str(item) + '\n')
 
-write_to_file(0.3)
-write_to_file(0.5)
-write_to_file(0.7)
+# write_to_file(0.3)
+# write_to_file(0.5)
+# write_to_file(0.7)
 
